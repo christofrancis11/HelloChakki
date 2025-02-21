@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            overflow: hidden;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .question {
+            font-size: 2.5rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+        .btn-custom {
+            min-width: 120px;
+            margin: 10px;
+            font-size: 1.2rem;
+            padding: 10px 30px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-yes {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+        }
+        .btn-no {
+            background-color: #ff4b4b;
+            border: none;
+            color: white;
+            position: relative;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff4b4b;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @media (max-width: 576px) {
+            .question {
+                font-size: 1.8rem;
+            }
+            .btn-custom {
+                min-width: 100px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="question">Will you be my girl? 🌹</h1>
+        <div class="buttons">
+            <button class="btn btn-custom btn-yes" onclick="redirectToSuccess()">YES</button>
+            <button class="btn btn-custom btn-no" onmouseover="moveButton(this)">NO</button>
+        </div>
+    </div>
+
+    <script>
+        function moveButton(button) {
+            const container = document.querySelector('.container');
+            const maxX = container.clientWidth - button.offsetWidth;
+            const maxY = container.clientHeight - button.offsetHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            button.style.position = 'absolute';
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+            
+            createHeart(randomX, randomY);
+        }
+
+        function createHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.className = 'heart';
+            heart.style.left = (x + 50) + 'px';
+            heart.style.top = (y - 20) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 1000);
+        }
+
+        function redirectToSuccess() {
+            window.location.href = '#success-page';
+            document.body.innerHTML = successPage;
+        }
+
+        const successPage = `
+            <div class="container">
+                <div class="text-center">
+                    <h1 class="display-3 mb-4" style="color: #333; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                        Congratsss Stoopid girl....
+                    </h1>
+                    <h2 class="display-4" style="color: #444;">
+                        You are now MY GIRL! 💝
+                    </h2>
+                    <div class="mt-5">
+                        <div style="font-size: 5rem;">
+                            💑
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    </script>
+</body>
+</html>
